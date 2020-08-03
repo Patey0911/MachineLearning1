@@ -16,11 +16,17 @@ y = np.array(data[predict])
 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
-linear = linear_model.LinearRegression()
+"""linear = linear_model.LinearRegression()
 
 linear.fit(x_train, y_train)
 acc = linear.score(x_test, y_test)
 print(acc)
+
+with open("studentmodel.pickle","wb") as f:
+    pickle.dump(linear,f)"""
+
+pickle_in = open("studentmodel.pickle","rb")
+linear = pickle.load(pickle_in)
 
 print("Coefficient: \n", linear.coef_)
 print("Intercept: \n", linear.intercept_)
