@@ -1,6 +1,7 @@
-from PIL import ImageGrab
+from PIL import ImageGrab, ImageOps
 import pyautogui
 import time
+from numpy import *
 
 class Cordinates():
     replayBtn = (494,470)
@@ -15,8 +16,18 @@ def pressSpace():
     print("Jump")
     pyautogui.keyUp('space')
 
+def imageGrab():
+    box = (Cordinates.dinasaur[0]+96,Cordinates.dinasaur[1],Cordinates.dinasaur[0]+100,Cordinates.dinasaur[1]+30)
+    image = ImageGrab.grab(box)
+    greyImage = ImageOps.grayscale(image)
+    a = array(greyImage.getcolors())
+    return (a.sum())
 
-restartGame()
-while(True):
-    time.sleep(1)
-    pressSpace()
+def main():
+    restartGame()
+    while True:
+        if(imageGrab()!=367):
+            pressSpace()
+            time.sleep(0.1)
+
+main()
